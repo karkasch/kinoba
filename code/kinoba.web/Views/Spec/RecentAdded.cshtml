@@ -1,0 +1,18 @@
+﻿@model kinoba.business.Domain.SearchResult<kinoba.business.Specialist>
+@{
+    Layout = null;
+}
+Недавно добавленные
+<table border="1">
+@foreach (var spec in Model.Data)
+{
+<text>
+<tr>
+    <td>@spec.FirstName @spec.LastName</td>    
+    <td>@spec.Age</td>    
+    <td>@spec.ModifiedDate</td>    
+    <td><a href="@Url.Action("edit", "casting", new { id = spec.Slug })">@spec.Slug</a></td>    
+</tr>
+</text>
+}
+</table>

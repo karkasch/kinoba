@@ -1,0 +1,40 @@
+﻿@model kinoba.web.Models.AdminUsersModel
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<style>
+    .tbl {
+        width: 100%;
+        border-top: solid 1px #e5e5e5;
+        border-left: solid 1px #e5e5e5;
+        border-collapse: collapse;
+    }
+
+    .tbl th, .tbl td {
+        border-bottom: solid 1px #e5e5e5;
+        border-right: solid 1px #e5e5e5;
+        padding: 3px;
+    }
+</style>
+
+<h2>Пользователи</h2>
+
+<table class="tbl">
+    <tr>
+        <td>Дата регистрации</td>
+        <td>Email</td>
+        <td>Логин</td>
+        <td>Тип</td>
+    </tr>
+    @foreach (var user in Model.Users)
+    {
+    <tr>
+        <td>@user.AddedDate.ToString("yyyy-MM-dd HH:mm")</td>
+        <td>@user.Email</td>
+        <td>@user.Login</td>
+        <td>@user.UserType</td>
+    </tr>
+    }
+</table>

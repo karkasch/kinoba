@@ -1,0 +1,58 @@
+﻿@using kinoba.web.Core;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /> 
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans+Caption&subset=latin,cyrillic' rel='stylesheet' type='text/css' />
+    @Styles.Render("~/knd/styles/css")
+    <link rel="stylesheet" type="text/css" href="~/Content/kinoba.min.css" />
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("head", false)
+
+    <meta name="description" content="Кино" />
+</head>
+<body>
+    <header>
+        <h1><a href="/">Kinoba.se</a></h1>@*<h2>@ViewBag.PageTitle</h2>*@
+        <div class="bar">
+            @if (Kinoba.Authenticated)
+            {
+                <text>
+                    <p>Привет @Session["userName"]</p>
+                    <ul id="topMenu">
+                        <li>
+                            Кабинет
+                            <ul>
+                                <li><a href="@Url.Action("", "spec")">Карточка</a></li>
+                                <li><a href="@Url.Action("logout", "site")">Выйти</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </text>
+            }
+            else
+            {
+                <text>
+                    <a href="@Url.Action("login", "site")">Войти</a>
+                </text>
+            }
+        </div>
+        <div class="clear"></div>
+    </header>
+
+    <content>
+        @RenderBody()
+    </content>
+    @Scripts.Render("~/kendo/scripts")
+    <script>
+        $(document).ready(function () {
+            $("#topMenu").kendoMenu();
+        });
+    </script>
+    @RenderSection("footer", false)
+</body>
+</html>

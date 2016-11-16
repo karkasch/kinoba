@@ -1,0 +1,206 @@
+﻿@model kinoba.web.Models.SearchModel
+
+@{
+    ViewBag.Title = "Kinoba.se - Поиск";
+    //ViewBag.PageTitle = "Поиск";
+}
+
+@section head {
+    @Styles.Render("~/css/kinoba/search")
+}
+
+<div id="application"></div>
+
+<div style="display:none;">
+    <div id="specDetailsWindow" data-role="window"
+         data-title="Специалист"
+         data-modal="true"
+         data-width="800"
+         data-height="400"
+         data-bind="visible: false">
+        <div data-template="spec-details-template" data-bind="source: this" style="height:100%;"></div>
+    </div>
+</div>
+
+<script id="layout-template" type="text/x-kendo-template">
+    <div id="searchFormView" class="content brd"></div>
+    <div id="stickyalias"></div>
+    <br />
+    <div id="searchResultsView"></div>
+</script>
+
+<script id="search-form-template" type="text/x-kendo-template">
+    <div class="search-summary" data-bind="visible: summaryVisible, events: { click: onSummaryClick }">
+        <span data-bind="html: summaryText">&nbsp;</span>
+    </div>
+    <div data-bind="visible: formVisible">
+        <div class="sec-4">
+            <div>Местонахождение</div>
+            <select tabindex="3" data-role="dropdownlist" data-option-label="Выберите город..." data-bind="source: citiesDataSource, value: selectedCity" data-value-primitive="false" data-text-field="name" data-value-field="id"
+                    data-filter="startswith" style="width:90%">
+                @*@foreach (var city in Model.Cities)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }*@
+            </select>
+        </div>
+
+        <div class="sec-4">
+            <div>Профессия</div>
+            <select data-role="multiselect" data-placeholder="Выберите профессию..." data-bind="source: professionsDataSource, value: professionIds" data-value-primitive="false" data-text-field="name" data-value-field="id">
+                @*@foreach (var prof in Model.Professions)
+                    {
+                        <option value="@prof.Id">@prof.Name</option>
+                    }*@
+            </select>
+        </div>
+
+        <div class="sec-4">
+            <div>Пол</div>
+            <select data-role="dropdownlist" data-bind="value: sex" data-value-primitive="true" data-text-field="text" data-value-field="value">
+                <option value="0">-</option>
+                <option value="1">Муж</option>
+                <option value="2">Жен</option>
+            </select>
+        </div>
+
+        <div class="sec-4">
+            <div>Возраст</div>
+            от <input data-role="numerictextbox" data-min="0" data-max="101" data-format="n0" data-bind="value: ageFrom" style="width:80px;" />
+            до <input data-role="numerictextbox" data-min="0" data-max="101" data-format="n0" data-bind="value: ageTo" style="width:80px;" />
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="sec-4">
+            <div>Имя</div>
+            <input tabindex="4" type="text" class="k-input" data-bind="value: firstName" />
+        </div>
+
+        <div class="sec-4">
+            <div>Фамилия</div>
+            <input tabindex="5" type="text" class="k-input" data-bind="value: lastName" />
+        </div>
+
+        <div class="clear"></div>
+
+        <button data-role="button" data-bind="events: { click: search }">Поиск</button> <span class="pb-c" data-bind="visible: showProgress"></span>
+    </div>
+
+    <div class="clear"></div>
+</script>
+
+<script id="search-results-template" type="text/x-kendo-template">
+    <span data-bind="visible: showResultHeader">Результаты поиска. Всего <span data-bind="html: dataResult.total"></span></span>
+
+    <div data-role="listview" data-bind="source: dataResult.data" data-template="search-results-item-template" class="search-results" style="border:none;"></div>
+</script>
+
+<script id="search-results-item-template" type="text/x-kendo-template">
+    <div class="content brd spec-item" data-bind="events: { click: specSelected }">
+        <div class="photos" data-bind="events: { mouseover: onPhotosOver, mouseout: onPhotosOut }">
+            <ul data-role="listview" data-bind="source: specialistPhotos" data-template="specialist-photo-item-template" style="width:#= (205 * specialistPhotos.length + 5) #px"></ul>
+        </div>
+        <div class="spec-info">
+            <strong>#= firstName # #= lastName #</strong><br />
+            # if (sex == 1) { #
+            <span class="kicon-m">М</span>
+            # } else if (sex == 2) { #
+            <span class="kicon-f">Ж</span>
+            # } #
+            #= age #<br />
+            #= educationStr #<br />
+        </div>
+        <div class="spec-info2">
+            Дата кастинга<br /> <span>#= castingDate == null ? '' : kendo.toString(kendo.parseDate(castingDate), "dd.MM.yyyy") #</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</script>
+
+<script id="specialist-photo-item-template" type="text/x-kendo-template">
+    <li><span style="background-image:url(#= url #)" /></li>
+</script>
+
+<script id="specialist-detail-photo-item-template" type="text/x-kendo-template">
+    <li><span style="background-image:url(#= url #)" /></li>
+</script>
+
+<script id="specialist-detail-media-item-template" type="text/x-kendo-template">
+    <li>#= embedCode #</li>
+</script>
+
+<script id="spec-details-template" type="text/x-kendo-template">
+    <table class="tbl spec-details">
+        <tr>
+            <td rowspan="2" class="photos">
+                <ul data-role="listview" data-bind="source: specialist.specialistPhotos" data-template="specialist-detail-photo-item-template"></ul>
+            </td>
+            <td class="info">
+                <p>
+                    <span style="font-weight:bold;">#= specialist.firstName # #= specialist.lastName #</span><br />
+                    # if (specialist.sex == 1) { #
+                    <span class="kicon-m">М</span>
+                    # } else if (specialist.sex == 2) { #
+                    <span class="kicon-f">Ж</span>
+                    # } #
+                    #= specialist.age # #= specialist.city.name #<br />
+                    #= specialist.professionStr #<br />
+                    #= specialist.educationStr #<br />
+
+                    <a href="mailto:#= specialist.email #">#= specialist.email #</a><br />
+                </p>
+                <dl>
+                    <dt>Телефон</dt><dd>#= specialist.phone #</dd>
+                </dl>
+                <dl>
+                    <dt>Паспорт</dt><dd>#= specialist.passport #</dd>
+                </dl>
+                <dl>
+                    <dt>Рост</dt><dd>#= specialist.height #</dd>
+                </dl>
+                <dl>
+                    <dt>Размер одежды</dt><dd>#= showField(specialist.clothesSize) #</dd>
+                </dl>
+                <dl>
+                    <dt>Размер обуви</dt><dd>#= showField(specialist.shoeSize) #</dd>
+                </dl>
+                <dl>
+                    <dt>Размер обуви</dt><dd>#= showField(specialist.shoeSize) #</dd>
+                </dl>
+                <dl>
+                    <dt>Цвет глаз</dt><dd>#= specialist.eyeColorStr #</dd>
+                </dl>
+                <dl>
+                    <dt>Цвет волос</dt><dd>#= specialist.hairColorStr #</dd>
+                </dl>
+                <dl>
+                    <dt>Длина волос</dt><dd>#= specialist.hairLengthStr #</dd>
+                </dl>
+
+                <br />
+                <dl>
+                    <dt>Комментарий</dt><dd>#= specialist.notes #</dd>
+                </dl>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="medias">
+                <ul data-role="listview" data-bind="source: specialist.specialistMedias" data-template="specialist-detail-media-item-template"></ul>
+            </td>
+        </tr>
+    </table>
+</script>
+
+<script>
+    var citiesData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Cities.Select(a => new { id = a.Id, name = a.Name })));
+    var professionsData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Professions.Select(a => new { id = a.Id, name = a.Name })));
+</script>
+
+@section footer {
+    @Scripts.Render("~/apps/search")
+}
+
+
+

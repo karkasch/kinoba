@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Kinoba.se";
+}
+
+
+@*@if (kinoba.web.Core.Kinoba.Authenticated) { 
+    <h2>@Session["userName"]</h2>
+    <a href="@Url.Action("create", "casting")">Casting</a><br />
+}
+else
+{
+    <a href="@Url.Action("vklogin", "auth")">Vk</a><br />
+
+}*@
+
+<a href="@Url.Action("create", "casting")">Кастинг</a><br />
+<a href="@Url.Action("", "search")">Поиск</a><br />
+
+
+
+<br />
+@{Html.RenderAction("RecentAdded", "spec");}

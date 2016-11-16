@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cb362e370a3747e6b6b8481542e8d69f" Name="Diagram1">
+        <EntityTypeShape EntityType="kinobaModel.City" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinobaModel.Profession" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinobaModel.School" Width="1.5" PointX="6" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinobaModel.SpecialistProfessionLink" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinobaModel.Specialist" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kinobaModel.SpecialistSchoolLink" Width="1.5" PointX="8.25" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="kinobaModel.FK_Specialists_Cities" ManuallyRouted="false" />
+        <AssociationConnector Association="kinobaModel.FK_SpecialistProfessionLinks_Professions" ManuallyRouted="false" />
+        <AssociationConnector Association="kinobaModel.FK_SpecialistSchoolLinks_Schools" ManuallyRouted="false" />
+        <AssociationConnector Association="kinobaModel.FK_SpecialistProfessionLinks_Specialists" ManuallyRouted="false" />
+        <AssociationConnector Association="kinobaModel.FK_SpecialistSchoolLinks_Specialists" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="kinobaModel.SpecialistMedia" Width="1.5" PointX="8.25" PointY="12" />
+        <EntityTypeShape EntityType="kinobaModel.SpecialistPhoto" Width="1.5" PointX="8.25" PointY="5.375" />
+        <AssociationConnector Association="kinobaModel.FK_SpecialistMedias_Specialists" />
+        <AssociationConnector Association="kinobaModel.FK_SpecialistPhotos_Specialists" />
+        <EntityTypeShape EntityType="kinobaModel.User" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="kinobaModel.FK_Specialists_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

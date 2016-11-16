@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{78FD1A80-3B7D-43AA-95BD-C4F2ACD456B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>kinoba.business</RootNamespace>
+    <AssemblyName>kinoba.business</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="City.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Domain\EyeColor.cs" />
+    <Compile Include="Domain\HairType.cs" />
+    <Compile Include="Domain\ListItem.cs" />
+    <Compile Include="Domain\SearchResult.cs" />
+    <Compile Include="Domain\Specialist.cs" />
+    <Compile Include="Domain\SpecialistPhoto.cs" />
+    <Compile Include="Domain\SpecialistMediaTypes.cs" />
+    <Compile Include="Domain\SpecialistSearchParameters.cs" />
+    <Compile Include="Domain\User.cs" />
+    <Compile Include="Domain\UserTypes.cs" />
+    <Compile Include="Exceptions\KinobaseException.cs" />
+    <Compile Include="Kimages.cs" />
+    <Compile Include="kinobaEntities.cs" />
+    <Compile Include="KinobaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinobaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KinobaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KinobaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KinobaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="KinoCore.cs" />
+    <Compile Include="Managers\ListsManager.cs" />
+    <Compile Include="Managers\ProfessionManager.cs" />
+    <Compile Include="Managers\SchoolManager.cs" />
+    <Compile Include="Managers\SpecialistManager.cs" />
+    <Compile Include="Managers\SpecialistMediaManager.cs" />
+    <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="Profession.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="School.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Specialist.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpecialistMedia.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpecialistPhoto.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpecialistProfessionLink.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpecialistSchoolLink.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>KinobaModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="KinobaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KinobaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="KinobaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KinobaModel.edmx</DependentUpon>
+      <LastGenOutput>KinobaModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="KinobaModel.edmx.diagram">
+      <DependentUpon>KinobaModel.edmx</DependentUpon>
+    </None>
+    <None Include="KinobaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KinobaModel.edmx</DependentUpon>
+      <LastGenOutput>KinobaModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

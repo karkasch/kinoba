@@ -1,0 +1,280 @@
+﻿@model kinoba.web.Models.CastingModel
+@using kinoba.web.Core;
+
+@{
+    ViewBag.Title = "Kinoba.se - Кастинг";
+    ViewBag.PageTitle = "Кастинг";
+}
+
+@section head {
+
+    @*<script src="~/Scripts/uploader/vendor/jquery.ui.widget.js"></script>
+    <script src="~/Scripts/uploader/jquery.iframe-transport.js"></script>
+    <script src="~/Scripts/uploader/jquery.fileupload.js"></script>*@
+
+
+    @*<script src="~/Scripts/knb/data/list.data.item.js"></script>
+    <script src="~/Scripts/knb/data/professions.datasource.js"></script>
+    <script src="~/Scripts/knb/data/schools.datasource.js"></script>
+
+    <script src="~/Scripts/knb/models/specialist.model.js"></script>*@
+
+    @Styles.Render("~/css/casting")
+}
+
+<div id="application"></div>
+
+<span id="appNotification"></span>
+
+<script id="layout-template" type="text/x-kendo-template">
+    <div id="castingForm" class="content brd"></div>
+</script>
+
+<script id="specialist-template" type="text/x-kendo-template">
+
+    <div style="text-align:right">
+        ID: <span data-bind="html: slug"></span>
+    </div>
+
+    <div class="sec-3">
+        <div>Профессия</div>
+        <select tabindex="1" data-role="multiselect" data-placeholder="Выберите профессию..." data-bind="value: professionIds" data-value-primitive="true" data-text-field="text" data-value-field="value">
+            @foreach (var prof in Model.Professions)
+            {
+                <option value="@prof.Id">@prof.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="sec-3">
+        Образование
+        <select tabindex="2" data-role="multiselect" data-placeholder="Выберите ВУЗ..." data-value-primitive="true" data-text-field="text" data-value-field="value" data-bind="value: schoolIds">
+            @foreach (var school in Model.Schools)
+            {
+                <option value="@school.Id">@school.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="sec-3">
+        <div>Местонахождение</div>
+        <select tabindex="3" data-role="dropdownlist" data-option-label="Выберите город..." data-bind="value: cityId" data-value-primitive="true" data-text-field="text" data-value-field="value"
+                data-filter="startswith" style="width:90%">
+            @foreach (var city in Model.Cities)
+            {
+                <option value="@city.Id">@city.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="clear"></div>
+    <br />
+
+    <div class="sec-4">
+        <div>Имя</div>
+        <input tabindex="4" type="text" class="k-input" data-bind="value: firstName" />
+    </div>
+
+    <div class="sec-4">
+        <div>Фамилия</div>
+        <input tabindex="5" type="text" class="k-input" data-bind="value: lastName" />
+    </div>
+
+    <div class="sec-4">
+        <div>Пол</div>
+        <select tabindex="6" data-role="dropdownlist" data-bind="value: sex" data-value-primitive="true" data-text-field="text" data-value-field="value">
+            <option value="0">-</option>
+            <option value="1">Муж</option>
+            <option value="2">Жен</option>
+        </select>
+    </div>
+
+    <div class="sec-4">
+        <div>Дата рождения</div>
+        <input tabindex="7" data-role="datepicker" data-bind="value: birthDate" />
+    </div>
+
+    <div class="clear"></div>
+    <br />
+    
+    <div class="sec-4">
+        <div>Рост</div>
+        <input tabindex="8" data-role="numerictextbox" data-min="0" data-max="300" data-format="n0" data-bind="value: height" />
+    </div>
+
+    <div class="sec-4">
+        <div>Цвет волос</div>
+        <select tabindex="9" data-role="dropdownlist" data-bind="value: hairColor" data-value-primitive="true" data-text-field="text" data-value-field="value">
+            <option value="0">Другое</option>
+            <option value="1">Шатен</option>
+            <option value="2">Брюнет</option>
+            <option value="3">Блондин</option>
+            <option value="3">Рыжий</option>
+        </select>
+    </div>
+
+    <div class="sec-4">
+        <div>Длина волос</div>
+        <select tabindex="10" data-role="dropdownlist" data-placeholder="Выберите длину волос..." data-bind="value: hairTypeId" data-value-primitive="true" data-text-field="text" data-value-field="value">
+            @foreach (var ht in Model.HairTypes)
+            {
+                <option value="@ht.Id">@ht.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="sec-4">
+        <div>Цвет глаз</div>
+        <select tabindex="11" data-role="dropdownlist" data-placeholder="Выберите цвет глаз..." data-bind="value: eyeColorId" data-value-primitive="true" data-text-field="text" data-value-field="value">
+            @foreach (var ec in Model.EyeColors)
+            {
+                <option value="@ec.Id">@ec.Name</option>
+            }
+        </select>
+    </div>
+    
+    <div class="clear"></div>
+    <br />
+
+    <div class="sec-4">
+        <div>Размер одежды</div>
+        <input tabindex="12" data-role="numerictextbox" data-min="0" data-max="150" data-format="n0" data-bind="value: clothesSize" />
+    </div>
+
+    <div class="sec-4">
+        <div>Размер обуви</div>
+        <input tabindex="13" data-role="numerictextbox" data-min="0" data-max="100" data-format="n0" data-bind="value: shoeSize" />
+    </div>
+    
+    <div class="clear"></div>
+    <br />
+
+    <div class="sec-4">
+        <div>Телефон</div>
+        <input tabindex="14" type="text" class="k-input" data-bind="value: phone" />
+    </div>
+
+    <div class="sec-4">
+        <div>Email</div>
+        <input tabindex="15" type="text" class="k-input" data-bind="value: email" />
+    </div>
+
+    <div class="sec-4">
+        <div>Паспорт</div>
+        <input tabindex="16" type="text" class="k-input" data-bind="value: passport" />
+    </div>
+
+    <div class="sec-4">
+        <div>Дата кастинга</div>
+        <input tabindex="17" data-role="datepicker" data-bind="value: castingDate" />
+    </div>
+
+    <div class="clear"></div>
+    <br />
+
+    <div class="sec">
+        <div>Примечания</div>
+        <textarea tabindex="18" type="text" class="k-input" data-bind="value: notes" cols="110" rows="4" />
+    </div>
+
+    <div class="clear"></div>
+    <br />
+
+    <div>
+        <div>Фотографии</div>
+        <div data-role="listview" data-bind="source: photos" data-template="media-photo-template" style="border: none;"></div>
+        <div class="clear"></div>
+    </div>
+
+    <div data-bind="visible: showUpload">
+        <div>Загрузить фото</div>
+        <input type="file" id="photosUpload" name="files[]" multiple data-url="/api/photoimages/" />
+    </div>
+
+    <div class="clear"></div>
+    <br />
+
+    <div>
+        <div>Видео</div>
+        <input type="text" data-bind="value: videoLink" class="k-input" style="width:370px;" /> <button data-bind="events: { click: addVideoLink }">+</button><br />
+        <div data-role="listview" data-bind="source: medias" data-template="media-video-template" style="border: none;"></div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="clear"></div>
+    <br />
+
+    <div class="sec">
+        <button data-role="button" data-bind="events: { click: save }">Сохранить</button> <span class="pb-c" data-bind="visible: showProgress"></span>
+    </div>
+
+</script>
+
+<script id="media-photo-template" type="text/x-kendo-template">
+    <div class="photo-item">
+        <div class="photo-header"><span data-bind="events: { click: deletePhotoLink }" data-id="#= id #">x</span></div>
+        <img src="#= url #" title="Фото" />
+    </div>
+</script>
+
+<script id="media-video-template" type="text/x-kendo-template">
+    # if (mediaType == 2) {#
+    <div class="media-item">
+        <div class="media-header"><span data-bind="events: { click: deleteVideoLink }" data-link="#= link #">x</span></div>
+        #= embedCode #
+    </div>
+    # } #
+</script>
+
+@Scripts.Render("~/scripts/uploaderplugin")
+@Scripts.Render("~/kendo/scripts")
+@Scripts.Render("~/apps/casting")
+
+<script>
+    specEditModel.set('id', @Model.Specialist.Id);
+    specEditModel.set('slug', '@Model.Specialist.Slug');
+    specEditModel.set('professionIds', @Html.Raw(Kinoba.Serialize(Model.Specialist.SpecialistProfessionLinks.Select(a => a.ProfessionId))));
+    specEditModel.set('sex', @Model.Specialist.Sex);
+    specEditModel.set('schoolIds', @Html.Raw(Kinoba.Serialize(Model.Specialist.SpecialistSchoolLinks.Select(a => a.SchoolId))));
+    specEditModel.set('birthDate', '@Model.Specialist.BirthDate');
+    @if (Model.Specialist.Height.HasValue)
+    {
+        <text>specEditModel.set('height', @Model.Specialist.Height);</text>
+    }
+    @if (Model.Specialist.ClothesSize.HasValue)
+    {
+        <text>specEditModel.set('clothesSize', @Model.Specialist.ClothesSize);</text>
+    }
+    @if (Model.Specialist.ShoeSize.HasValue)
+    {
+        <text>specEditModel.set('shoeSize', @Model.Specialist.ShoeSize);</text>
+    }
+    @if (Model.Specialist.EyeColor.HasValue)
+    {
+        <text>specEditModel.set('eyeColor', @Model.Specialist.EyeColor);</text>
+    }
+    @if (Model.Specialist.HairLength.HasValue)
+    {
+        <text>specEditModel.set('hairLength', @Model.Specialist.HairLength);</text>
+    }
+    @if (Model.Specialist.HairColor.HasValue)
+    {
+        <text>specEditModel.set('hairColor', @Model.Specialist.HairColor);</text>
+    }
+    @if (Model.Specialist.CityId.HasValue)
+    {
+        <text>specEditModel.set('cityId', @Model.Specialist.CityId);</text>
+    }
+    specEditModel.set('firstName', '@Model.Specialist.FirstName');
+    specEditModel.set('lastName', '@Model.Specialist.LastName');
+    specEditModel.set('phone', '@Model.Specialist.Phone');
+    specEditModel.set('email', '@Model.Specialist.Email');
+    specEditModel.set('passport', '@Model.Specialist.Passport');
+    specEditModel.set('castingDate', '@Model.Specialist.CastingDate');
+    specEditModel.set('notes', '@((Model.Specialist.Notes ?? "").Replace("\n", "\\n"))');
+    specEditModel.set('photos', @Html.Raw(Kinoba.Serialize(Model.Specialist.SpecialistPhotos)));
+    specEditModel.set('medias', @Html.Raw(Kinoba.Serialize(Model.Specialist.SpecialistMedias)));
+
+    //specEditModel.updateView();
+</script>
+

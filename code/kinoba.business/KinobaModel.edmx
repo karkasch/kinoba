@@ -1,0 +1,626 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="kinobaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Professions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schools">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpecialistMedias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecialistId" Type="int" Nullable="false" />
+          <Property Name="MediaType" Type="smallint" Nullable="false" />
+          <Property Name="Link" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="EmbedCode" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="SpecialistPhotos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecialistId" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SpecialistProfessionLinks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecialistId" Type="int" Nullable="false" />
+          <Property Name="ProfessionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specialists">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Slug" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="AddedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="CastingDate" Type="smalldatetime" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="Sex" Type="tinyint" Nullable="false" />
+          <Property Name="BirthDate" Type="smalldatetime" />
+          <Property Name="Height" Type="smallint" />
+          <Property Name="ClothesSize" Type="smallint" />
+          <Property Name="ShoeSize" Type="smallint" />
+          <Property Name="EyeColor" Type="smallint" />
+          <Property Name="HairLength" Type="smallint" />
+          <Property Name="HairColor" Type="smallint" />
+          <Property Name="Passport" Type="nvarchar" MaxLength="50" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="SpecialistSchoolLinks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecialistId" Type="int" Nullable="false" />
+          <Property Name="SchoolId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserType" Type="smallint" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddedDate" Type="smalldatetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="smalldatetime" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsAdmin" Type="bit" />
+        </EntityType>
+        <Association Name="FK_SpecialistMedias_Specialists">
+          <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+          <End Role="SpecialistMedias" Type="Self.SpecialistMedias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistMedias">
+              <PropertyRef Name="SpecialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistPhotos_Specialists">
+          <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+          <End Role="SpecialistPhotos" Type="Self.SpecialistPhotos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistPhotos">
+              <PropertyRef Name="SpecialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistProfessionLinks_Professions">
+          <End Role="Professions" Type="Self.Professions" Multiplicity="1" />
+          <End Role="SpecialistProfessionLinks" Type="Self.SpecialistProfessionLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistProfessionLinks">
+              <PropertyRef Name="ProfessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistProfessionLinks_Specialists">
+          <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+          <End Role="SpecialistProfessionLinks" Type="Self.SpecialistProfessionLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistProfessionLinks">
+              <PropertyRef Name="SpecialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specialists_Cities">
+          <End Role="Cities" Type="Self.Cities" Multiplicity="0..1" />
+          <End Role="Specialists" Type="Self.Specialists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialists">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Specialists_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Specialists" Type="Self.Specialists" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialists">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistSchoolLinks_Schools">
+          <End Role="Schools" Type="Self.Schools" Multiplicity="1" />
+          <End Role="SpecialistSchoolLinks" Type="Self.SpecialistSchoolLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistSchoolLinks">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistSchoolLinks_Specialists">
+          <End Role="Specialists" Type="Self.Specialists" Multiplicity="1" />
+          <End Role="SpecialistSchoolLinks" Type="Self.SpecialistSchoolLinks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistSchoolLinks">
+              <PropertyRef Name="SpecialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="kinobaModelStoreContainer">
+          <EntitySet Name="Cities" EntityType="Self.Cities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Professions" EntityType="Self.Professions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpecialistMedias" EntityType="Self.SpecialistMedias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpecialistPhotos" EntityType="Self.SpecialistPhotos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpecialistProfessionLinks" EntityType="Self.SpecialistProfessionLinks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialists" EntityType="Self.Specialists" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpecialistSchoolLinks" EntityType="Self.SpecialistSchoolLinks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SpecialistMedias_Specialists" Association="Self.FK_SpecialistMedias_Specialists">
+            <End Role="Specialists" EntitySet="Specialists" />
+            <End Role="SpecialistMedias" EntitySet="SpecialistMedias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistPhotos_Specialists" Association="Self.FK_SpecialistPhotos_Specialists">
+            <End Role="Specialists" EntitySet="Specialists" />
+            <End Role="SpecialistPhotos" EntitySet="SpecialistPhotos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistProfessionLinks_Professions" Association="Self.FK_SpecialistProfessionLinks_Professions">
+            <End Role="Professions" EntitySet="Professions" />
+            <End Role="SpecialistProfessionLinks" EntitySet="SpecialistProfessionLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistProfessionLinks_Specialists" Association="Self.FK_SpecialistProfessionLinks_Specialists">
+            <End Role="Specialists" EntitySet="Specialists" />
+            <End Role="SpecialistProfessionLinks" EntitySet="SpecialistProfessionLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specialists_Cities" Association="Self.FK_Specialists_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Specialists" EntitySet="Specialists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Specialists_Users" Association="Self.FK_Specialists_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Specialists" EntitySet="Specialists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistSchoolLinks_Schools" Association="Self.FK_SpecialistSchoolLinks_Schools">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="SpecialistSchoolLinks" EntitySet="SpecialistSchoolLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistSchoolLinks_Specialists" Association="Self.FK_SpecialistSchoolLinks_Specialists">
+            <End Role="Specialists" EntitySet="Specialists" />
+            <End Role="SpecialistSchoolLinks" EntitySet="SpecialistSchoolLinks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="kinobaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Specialists" Relationship="Self.FK_Specialists_Cities" FromRole="Cities" ToRole="Specialists" />
+        </EntityType>
+        <EntityType Name="Profession">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SpecialistProfessionLinks" Relationship="Self.FK_SpecialistProfessionLinks_Professions" FromRole="Professions" ToRole="SpecialistProfessionLinks" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="SpecialistSchoolLinks" Relationship="Self.FK_SpecialistSchoolLinks_Schools" FromRole="Schools" ToRole="SpecialistSchoolLinks" />
+        </EntityType>
+        <EntityType Name="SpecialistProfessionLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecialistId" Type="Int32" Nullable="false" />
+          <Property Name="ProfessionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Profession" Relationship="Self.FK_SpecialistProfessionLinks_Professions" FromRole="SpecialistProfessionLinks" ToRole="Professions" />
+          <NavigationProperty Name="Specialist" Relationship="Self.FK_SpecialistProfessionLinks_Specialists" FromRole="SpecialistProfessionLinks" ToRole="Specialists" />
+        </EntityType>
+        <EntityType Name="Specialist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Slug" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="CastingDate" Type="DateTime" Precision="0" />
+          <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="Byte" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="Height" Type="Int16" />
+          <Property Name="ClothesSize" Type="Int16" />
+          <Property Name="ShoeSize" Type="Int16" />
+          <Property Name="EyeColor" Type="Int16" />
+          <Property Name="HairLength" Type="Int16" />
+          <Property Name="HairColor" Type="Int16" />
+          <Property Name="Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Specialists_Cities" FromRole="Specialists" ToRole="Cities" />
+          <NavigationProperty Name="SpecialistProfessionLinks" Relationship="Self.FK_SpecialistProfessionLinks_Specialists" FromRole="Specialists" ToRole="SpecialistProfessionLinks" />
+          <NavigationProperty Name="SpecialistSchoolLinks" Relationship="Self.FK_SpecialistSchoolLinks_Specialists" FromRole="Specialists" ToRole="SpecialistSchoolLinks" />
+          <NavigationProperty Name="SpecialistMedias" Relationship="kinobaModel.FK_SpecialistMedias_Specialists" FromRole="Specialist" ToRole="SpecialistMedia" />
+          <NavigationProperty Name="SpecialistPhotos" Relationship="kinobaModel.FK_SpecialistPhotos_Specialists" FromRole="Specialist" ToRole="SpecialistPhoto" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="kinobaModel.FK_Specialists_Users" FromRole="Specialist" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SpecialistSchoolLink">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecialistId" Type="Int32" Nullable="false" />
+          <Property Name="SchoolId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="School" Relationship="Self.FK_SpecialistSchoolLinks_Schools" FromRole="SpecialistSchoolLinks" ToRole="Schools" />
+          <NavigationProperty Name="Specialist" Relationship="Self.FK_SpecialistSchoolLinks_Specialists" FromRole="SpecialistSchoolLinks" ToRole="Specialists" />
+        </EntityType>
+        <Association Name="FK_Specialists_Cities">
+          <End Role="Cities" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Specialists" Type="Self.Specialist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cities">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialists">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistProfessionLinks_Professions">
+          <End Role="Professions" Type="Self.Profession" Multiplicity="1" />
+          <End Role="SpecialistProfessionLinks" Type="Self.SpecialistProfessionLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Professions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistProfessionLinks">
+              <PropertyRef Name="ProfessionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistSchoolLinks_Schools">
+          <End Role="Schools" Type="Self.School" Multiplicity="1" />
+          <End Role="SpecialistSchoolLinks" Type="Self.SpecialistSchoolLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schools">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistSchoolLinks">
+              <PropertyRef Name="SchoolId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistProfessionLinks_Specialists">
+          <End Role="Specialists" Type="Self.Specialist" Multiplicity="1" />
+          <End Role="SpecialistProfessionLinks" Type="Self.SpecialistProfessionLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistProfessionLinks">
+              <PropertyRef Name="SpecialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistSchoolLinks_Specialists">
+          <End Role="Specialists" Type="Self.Specialist" Multiplicity="1" />
+          <End Role="SpecialistSchoolLinks" Type="Self.SpecialistSchoolLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistSchoolLinks">
+              <PropertyRef Name="SpecialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="kinobaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Professions" EntityType="Self.Profession" />
+          <EntitySet Name="Schools" EntityType="Self.School" />
+          <EntitySet Name="SpecialistProfessionLinks" EntityType="Self.SpecialistProfessionLink" />
+          <EntitySet Name="Specialists" EntityType="Self.Specialist" />
+          <EntitySet Name="SpecialistSchoolLinks" EntityType="Self.SpecialistSchoolLink" />
+          <AssociationSet Name="FK_Specialists_Cities" Association="Self.FK_Specialists_Cities">
+            <End Role="Cities" EntitySet="Cities" />
+            <End Role="Specialists" EntitySet="Specialists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistProfessionLinks_Professions" Association="Self.FK_SpecialistProfessionLinks_Professions">
+            <End Role="Professions" EntitySet="Professions" />
+            <End Role="SpecialistProfessionLinks" EntitySet="SpecialistProfessionLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistSchoolLinks_Schools" Association="Self.FK_SpecialistSchoolLinks_Schools">
+            <End Role="Schools" EntitySet="Schools" />
+            <End Role="SpecialistSchoolLinks" EntitySet="SpecialistSchoolLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistProfessionLinks_Specialists" Association="Self.FK_SpecialistProfessionLinks_Specialists">
+            <End Role="Specialists" EntitySet="Specialists" />
+            <End Role="SpecialistProfessionLinks" EntitySet="SpecialistProfessionLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistSchoolLinks_Specialists" Association="Self.FK_SpecialistSchoolLinks_Specialists">
+            <End Role="Specialists" EntitySet="Specialists" />
+            <End Role="SpecialistSchoolLinks" EntitySet="SpecialistSchoolLinks" />
+          </AssociationSet>
+          <EntitySet Name="SpecialistMedias" EntityType="kinobaModel.SpecialistMedia" />
+          <EntitySet Name="SpecialistPhotos" EntityType="kinobaModel.SpecialistPhoto" />
+          <AssociationSet Name="FK_SpecialistMedias_Specialists" Association="kinobaModel.FK_SpecialistMedias_Specialists">
+            <End Role="Specialist" EntitySet="Specialists" />
+            <End Role="SpecialistMedia" EntitySet="SpecialistMedias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpecialistPhotos_Specialists" Association="kinobaModel.FK_SpecialistPhotos_Specialists">
+            <End Role="Specialist" EntitySet="Specialists" />
+            <End Role="SpecialistPhoto" EntitySet="SpecialistPhotos" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="kinobaModel.User" />
+          <AssociationSet Name="FK_Specialists_Users" Association="kinobaModel.FK_Specialists_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Specialist" EntitySet="Specialists" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SpecialistMedia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecialistId" Type="Int32" Nullable="false" />
+          <Property Name="MediaType" Type="Int16" Nullable="false" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EmbedCode" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Specialist" Relationship="kinobaModel.FK_SpecialistMedias_Specialists" FromRole="SpecialistMedia" ToRole="Specialist" />
+        </EntityType>
+        <EntityType Name="SpecialistPhoto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecialistId" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Specialist" Relationship="kinobaModel.FK_SpecialistPhotos_Specialists" FromRole="SpecialistPhoto" ToRole="Specialist" />
+        </EntityType>
+        <Association Name="FK_SpecialistMedias_Specialists">
+          <End Type="kinobaModel.Specialist" Role="Specialist" Multiplicity="1" />
+          <End Type="kinobaModel.SpecialistMedia" Role="SpecialistMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistMedia">
+              <PropertyRef Name="SpecialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SpecialistPhotos_Specialists">
+          <End Type="kinobaModel.Specialist" Role="Specialist" Multiplicity="1" />
+          <End Type="kinobaModel.SpecialistPhoto" Role="SpecialistPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SpecialistPhoto">
+              <PropertyRef Name="SpecialistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="Int16" Nullable="false" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Boolean" />
+          <NavigationProperty Name="Specialists" Relationship="kinobaModel.FK_Specialists_Users" FromRole="User" ToRole="Specialist" />
+        </EntityType>
+        <Association Name="FK_Specialists_Users">
+          <End Type="kinobaModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="kinobaModel.Specialist" Role="Specialist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialist">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="kinobaModelStoreContainer" CdmEntityContainer="kinobaEntities">
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="kinobaModel.City">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Professions">
+            <EntityTypeMapping TypeName="kinobaModel.Profession">
+              <MappingFragment StoreEntitySet="Professions">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="kinobaModel.School">
+              <MappingFragment StoreEntitySet="Schools">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpecialistProfessionLinks">
+            <EntityTypeMapping TypeName="kinobaModel.SpecialistProfessionLink">
+              <MappingFragment StoreEntitySet="SpecialistProfessionLinks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SpecialistId" ColumnName="SpecialistId" />
+                <ScalarProperty Name="ProfessionId" ColumnName="ProfessionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialists">
+            <EntityTypeMapping TypeName="kinobaModel.Specialist">
+              <MappingFragment StoreEntitySet="Specialists">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Slug" ColumnName="Slug" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CastingDate" ColumnName="CastingDate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="ClothesSize" ColumnName="ClothesSize" />
+                <ScalarProperty Name="ShoeSize" ColumnName="ShoeSize" />
+                <ScalarProperty Name="EyeColor" ColumnName="EyeColor" />
+                <ScalarProperty Name="HairLength" ColumnName="HairLength" />
+                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpecialistSchoolLinks">
+            <EntityTypeMapping TypeName="kinobaModel.SpecialistSchoolLink">
+              <MappingFragment StoreEntitySet="SpecialistSchoolLinks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SpecialistId" ColumnName="SpecialistId" />
+                <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpecialistMedias">
+            <EntityTypeMapping TypeName="kinobaModel.SpecialistMedia">
+              <MappingFragment StoreEntitySet="SpecialistMedias">
+                <ScalarProperty Name="EmbedCode" ColumnName="EmbedCode" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+                <ScalarProperty Name="SpecialistId" ColumnName="SpecialistId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpecialistPhotos">
+            <EntityTypeMapping TypeName="kinobaModel.SpecialistPhoto">
+              <MappingFragment StoreEntitySet="SpecialistPhotos">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="SpecialistId" ColumnName="SpecialistId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="kinobaModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AddedDate" ColumnName="AddedDate" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

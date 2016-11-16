@@ -1,0 +1,198 @@
+﻿.search-summary:hover span {
+  background-color: #7ea700;
+  /*box-shadow: rgba(168, 186, 114, 0.30) 0 1px 3px;*/
+  cursor: pointer;
+  color: white;
+}
+#searchResultsView {
+  z-index: 1;
+}
+.search-results {
+  /*border: solid 1px #cfcfcf;*/
+  background-color: #f0f0f0;
+}
+.search-results .spec-item {
+  margin-bottom: 10px;
+}
+.search-results .spec-item .photos {
+  width: 430px;
+  height: 220px;
+  overflow: auto;
+  overflow-y: hidden;
+  float: left;
+}
+.search-results .spec-item .photos ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.search-results .spec-item .photos ul li {
+  display: inline-block;
+}
+.search-results .spec-item .photos ul li span {
+  border-radius: 2px;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #e4e4e4;
+}
+.search-results .spec-item .photos .photo-list {
+  width: 1111px;
+}
+.search-results .spec-item .photos img {
+  width: 200px;
+}
+.search-results .spec-item .spec-info {
+  padding: 10px;
+  padding-top: 0;
+  padding-left: 30px;
+  float: left;
+  width: 48%;
+  margin-right: -420px;
+  line-height: 24px;
+}
+.search-results .spec-item .spec-info2 {
+  float: right;
+  width: 48%;
+  text-align: right;
+  padding: 10px;
+  margin-left: -20px;
+}
+.search-results .spec-item:hover {
+  border: solid 1px #8ebc00;
+  box-shadow: rgba(168, 186, 114, 0.3) 0 1px 3px;
+  cursor: pointer;
+}
+#specDetailsWindow .tbl {
+  width: 100%;
+  height: 100%;
+}
+#specDetailsWindow .tbl td {
+  padding: 3px;
+  vertical-align: top;
+}
+#specDetailsWindow .spec-details .photos {
+  padding: 0;
+  width: 620px;
+  /*border-right: solid 1px #e0e0e0;*/
+  background-color: #f0f0f0;
+  border-radius: 2px;
+  background: linear-gradient(#f0f0f0, #ffffff);
+}
+#specDetailsWindow .spec-details .photos ul {
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+#specDetailsWindow .spec-details .photos ul li {
+  vertical-align: top;
+  display: inline-block;
+}
+#specDetailsWindow .spec-details .photos ul li span {
+  border-radius: 2px;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #e4e4e4;
+}
+#specDetailsWindow .spec-details .info {
+  padding-left: 30px;
+  color: #404040;
+}
+#specDetailsWindow .spec-details .info p {
+  line-height: 24px;
+  margin: 0;
+}
+#specDetailsWindow .spec-details .info .dt {
+  display: inline-block;
+  width: 180px;
+  font-size: 13px;
+  /*border-bottom: solid 1px #e4e4e4;*/
+}
+#specDetailsWindow .spec-details .info dl {
+  margin: 0;
+  margin-top: 10px;
+  margin-right: 10px;
+  display: inline-block;
+  border: solid 1px #afafaf;
+  border-radius: 2px;
+}
+#specDetailsWindow .spec-details .info dl dt {
+  background-color: #ababab;
+  display: inline-block;
+  padding: 1px;
+  padding-right: 10px;
+  padding-left: 5px;
+  color: white;
+}
+#specDetailsWindow .spec-details .info dl dd {
+  margin: 0;
+  display: inline-block;
+  padding: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: left;
+}
+#specDetailsWindow .spec-details .medias {
+  vertical-align: bottom;
+  padding-left: 30px;
+}
+#specDetailsWindow .spec-details .medias ul {
+  border: none;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+#specDetailsWindow .spec-details .medias ul li {
+  display: inline-block;
+}
+#specDetailsWindow .spec-details .medias ul li iframe {
+  width: 340px;
+  height: 220px;
+}
+#stickyalias {
+  display: none;
+  height: 50px;
+}
+.sticked {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  box-shadow: 0 2px 5px rgba(193, 193, 193, 0.58);
+}
+.kicon-m {
+  background-color: #688399;
+  color: white;
+  padding-left: 3px;
+  padding-right: 3px;
+  display: inline-block;
+  border-radius: 2px;
+  font-size: 12px;
+  line-height: 17px;
+  vertical-align: text-top;
+  margin-top: 2px;
+}
+.kicon-f {
+  background-color: #9B5370;
+  color: white;
+  padding-left: 3px;
+  padding-right: 3px;
+  display: inline-block;
+  border-radius: 2px;
+  font-size: 12px;
+  line-height: 17px;
+  vertical-align: text-top;
+  margin-top: 2px;
+}
+/*# sourceMappingURL=specialist.search.css.map */
